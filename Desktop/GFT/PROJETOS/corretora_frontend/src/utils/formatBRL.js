@@ -1,0 +1,1 @@
+export function brl(v){try{return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(v||0));}catch(e){return 'R$ '+Number(v||0).toFixed(2)}}
