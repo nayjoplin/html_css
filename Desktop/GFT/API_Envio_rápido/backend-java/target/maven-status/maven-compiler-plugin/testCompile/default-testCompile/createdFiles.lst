@@ -1,0 +1,7 @@
+com\example\enviorapido\controller\EnvioControllerTest.class
+com\example\enviorapido\IntegrationTest.class
+com\example\enviorapido\IntegrationFlowTest.class
+com\example\enviorapido\controller\AuthControllerTest.class
+com\example\enviorapido\service\FreteServiceTest.class
+com\example\enviorapido\RabbitFlowIntegrationTest.class
+com\example\enviorapido\service\ViaCepClientTest.class

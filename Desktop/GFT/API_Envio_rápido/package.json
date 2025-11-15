@@ -1,0 +1,25 @@
+{
+  "name": "envio-rapido-api",
+  "version": "1.0.0",
+  "description": "API Envio Rápido - cadastro de envios e cálculo de frete",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "NODE_ENV=test jest --runInBand --coverage"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "amqplib": "^0.10.3",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4",
+    "nodemon": "^3.1.0"
+  }
+}

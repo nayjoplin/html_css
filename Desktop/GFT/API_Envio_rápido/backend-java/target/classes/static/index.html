@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Envio Rápido API</title>
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:40px;color:#222}a{color:#0b66c3}</style>
+</head>
+<body>
+  <h1>Envio Rápido API</h1>
+  <p>API para cadastro de envios, validação de CEP, cálculo de frete e notificação via fila.</p>
+
+  <h2>Endpoints</h2>
+  <ul>
+    <li><strong>POST /api/envios</strong> — cria novo envio</li>
+    <li><strong>GET /api/envios/{id}</strong> — consulta envio</li>
+    <li><strong>PUT /api/envios/{id}</strong> — atualiza envio</li>
+    <li><strong>PATCH /api/envios/{id}/endereco</strong> — atualiza endereço</li>
+    <li><strong>DELETE /api/envios/{id}</strong> — remove envio</li>
+  </ul>
+
+  <h2>Documentação</h2>
+  <p>Swagger UI: <a href="/docs" target="_blank">/docs</a></p>
+  <p>OpenAPI JSON: <a href="/api-docs" target="_blank">/api-docs</a></p>
+
+  <h2>Exemplo de payload (POST /api/envios)</h2>
+  <pre>{
+  "remetente": {
+    "nome": "Empresa Exemplo",
+    "cep": "01001000"
+  },
+  "destinatario": {
+    "nome": "Cliente Final",
+    "cep": "87020025"
+  },
+  "pacote": {
+    "peso_kg": 1.5,
+    "altura_cm": 10,
+    "largura_cm": 20,
+    "comprimento_cm": 30
+  }
+}</pre>
+
+  <h2>Execução</h2>
+  <p>Com Docker Compose (recomendado):</p>
+  <pre>cd backend-java
+docker compose up --build</pre>
+
+  <p>Ou local com Maven:</p>
+  <pre>cd backend-java
+mvn package
+java -jar target/envio-rapido-0.0.1-SNAPSHOT.jar</pre>
+
+  <h2>Variáveis de ambiente</h2>
+  <ul>
+    <li><code>MONGO_URI</code> (padrão <code>mongodb://localhost:27017/envio_rapido</code>)</li>
+    <li><code>RABBITMQ_URL</code> (padrão <code>amqp://localhost</code>)</li>
+    <li><code>PORT</code> (padrão <code>3000</code>)</li>
+  </ul>
+
+  <p>Se quiser, eu adiciono exemplo de payload para o <code>POST /api/envios</code> ou crio testes automatizados.</p>
+</body>
+</html>

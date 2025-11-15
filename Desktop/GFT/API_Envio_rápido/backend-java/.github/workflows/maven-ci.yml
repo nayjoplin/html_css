@@ -1,0 +1,63 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main, master, aula-03 ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build and run tests
+        run: mvn -B -DskipTests=false test
+
+  integration:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongo --eval 'db.adminCommand(\"ping\")'" --health-interval 10s --health-timeout 5s --health-retries 5
+      rabbit:
+        image: rabbitmq:3.11-management
+        ports:
+          - 5672:5672
+          - 15672:15672
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Wait for services
+        run: |
+          echo "Waiting for Mongo and RabbitMQ to be healthy..."
+          for i in {1..30}; do
+            nc -z localhost 27017 && nc -z localhost 5672 && break || sleep 2
+          done
+
+      - name: Run integration test
+        run: mvn -B -DskipTests=false -Dtest=IntegrationFlowTest test
